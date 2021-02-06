@@ -29,7 +29,7 @@
 			<td><c:out value="${u.id }"></c:out></td>
 			<td><c:out value="${u.name }"></c:out></td>
 			<td><c:out value="${u.desc }"></c:out></td>
-			<td><img height="100px" src:"data:image/jpeg;base64,${c.encode}/></td> 
+			<td><img height="100px" src="data:image/jpeg;base64,${u.encode}" /></td> 
 			<td contenteditable="false"><c:out value="${u.category }"></c:out></td>
 			<%-- <td><a href="<%=request.getContextPath() %>/UserController/edit?id=${u.id}">Update</a></td> --%>
 			<td><a href="<%=request.getContextPath() %>/AdminController/delete_course?id=${u.id}">Delete</a></td>
@@ -43,7 +43,6 @@
 			out.print("<td>" + u.getId() + "</td>");
 			out.print("<td>" + u.getName() + "</td>");
 			out.print("<td>" + u.getAddress() + "</td>");
-
 			/* String delurl = "<td><a href="+request.getContextPath()+"/UserController/delete?id="+u.getId()+">Delete</a></td>";
 			String updateurl = "<td><a href="+request.getContextPath()+"/UserController/edit?id="+u.getId()+">update</a></td>";
 			out.print(updateurl);

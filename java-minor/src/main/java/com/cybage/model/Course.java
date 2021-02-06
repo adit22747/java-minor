@@ -8,12 +8,12 @@ public class Course {
 	private String desc;
 	private InputStream course_image;
 	private String category;
-	private String Encode;
+	private String encode;
 	public String getEncode() {
-		return Encode;
+		return encode;
 	}
 	public void setEncode(String encode) {
-		Encode = encode;
+		this.encode = encode;
 	}
 	public int getId() {
 		return id;

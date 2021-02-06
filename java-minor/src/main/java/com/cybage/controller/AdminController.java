@@ -57,8 +57,9 @@ public class AdminController extends HttpServlet {
 					if(course.getCourse_image() != null) {
 						byte[] bytes = IOUtils.toByteArray(course.getCourse_image());
 						String encode = Base64.getEncoder().encodeToString(bytes);
-						System.out.println(encode);
+						
 						course.setEncode(encode);
+						System.out.println(course.getEncode());
 					}
 					
 				}
