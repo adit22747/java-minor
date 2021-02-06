@@ -3,7 +3,7 @@ package com.cybage.model;
 public class Video {
 	private int id;
 	private String name;
-	private int duration;
+	private String duration;
 	private String url;
 	private String course;
 	public int getId() {
@@ -18,10 +18,10 @@ public class Video {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getDuration() {
+	public String getDuration() {
 		return duration;
 	}
-	public void setDuration(int duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 	public String getUrl() {
@@ -36,7 +36,7 @@ public class Video {
 	public void setCourse(String course) {
 		this.course = course;
 	}
-	public Video(int id, String name, int duration, String url, String course) {
+	public Video(int id, String name, String duration, String url, String course) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,14 +44,14 @@ public class Video {
 		this.url = url;
 		this.course = course;
 	}
-	public Video(String name, int duration, String url, String course) {
+	public Video(String name, String duration, String url, String course) {
 		super();
 		this.name = name;
 		this.duration = duration;
 		this.url = url;
 		this.course = course;
 	}
-	public Video(String name, int duration, String url) {
+	public Video(String name,String duration, String url) {
 		super();
 		this.name = name;
 		this.duration = duration;

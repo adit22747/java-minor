@@ -101,7 +101,7 @@ public class AdminDaoImplements implements AdminDaoInterface {
 			Video v=new Video();
 			v.setCourse(rs.getString(1));
 			v.setName(rs.getString(2));
-			v.setDuration(rs.getInt(3));
+			v.setDuration(rs.getString(3));
 			v.setUrl(rs.getString(4));
 			videos.add(v);
 		}
@@ -115,7 +115,7 @@ public class AdminDaoImplements implements AdminDaoInterface {
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(2, 1);
 		ps.setString(3, v.getName());
-		ps.setInt(4, v.getDuration());
+		ps.setString(4, v.getDuration());
 		ps.setString(5, v.getUrl());
 		return ps.executeUpdate();
 	}

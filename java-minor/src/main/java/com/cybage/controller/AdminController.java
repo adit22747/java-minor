@@ -68,7 +68,7 @@ public class AdminController extends HttpServlet {
 						String encode = Base64.getEncoder().encodeToString(bytes);
 
 						course.setEncode(encode);
-						System.out.println(course.getEncode());
+						
 					}
 
 				}
@@ -124,6 +124,10 @@ public class AdminController extends HttpServlet {
 				System.out.println(e.getMessage());
 			}
 		}
+		
+		
+		
+		
 		if (request.getPathInfo().equals("/add_video")) {
 			
 			System.out.println("add video method");
@@ -144,21 +148,15 @@ public class AdminController extends HttpServlet {
 			
 			try {
 				// Parse the request to get file items.
-				List fileItems = upload.parseRequest(request);
+				List<?> fileItems = upload.parseRequest(request);
 
 				// Process the uploaded file items
-				Iterator i = fileItems.iterator();
+				Iterator<?> i = fileItems.iterator();
 
 				while (i.hasNext()) {
 					FileItem fi = (FileItem) i.next();
 					if (!fi.isFormField()) {
-						// Get the uploaded file parameters
-						String fieldName = fi.getFieldName();
 						String fileName = fi.getName();
-						String contentType = fi.getContentType();
-						boolean isInMemory = fi.isInMemory();
-						long sizeInBytes = fi.getSize();
-
 						// Write the file
 						if (fileName.lastIndexOf("\\") >= 0) {
 							file = new File(filePath + fileName.substring(fileName.lastIndexOf("\\")));
@@ -169,10 +167,10 @@ public class AdminController extends HttpServlet {
 						
 						path = filePath + fileName;
 						System.out.println(path);
-						String video_name= request.getParameter("vname");
-						pw.print(video_name);
+						
 					}
 				}
+				
 
 			} catch (Exception ex) {
 				System.out.println(ex);
@@ -180,9 +178,9 @@ public class AdminController extends HttpServlet {
 			
 			
 			
-			/*String video_name = request.getParameter("vname");
-			
-			int video_duration = Integer.parseInt(request.getParameter("duration"));
+			String video_name = request.getParameter("vname");
+			System.out.println(video_name);
+			String video_duration = request.getParameter("duration");
 			Video video = new Video(video_name, video_duration, path);
 			System.out.println(video_duration);
 			try {
@@ -194,7 +192,7 @@ public class AdminController extends HttpServlet {
 //				
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-			}*/
+			}
 		}
 
 	}
