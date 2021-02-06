@@ -129,8 +129,12 @@ public class AdminController extends HttpServlet {
 		
 		
 		if (request.getPathInfo().equals("/add_video")) {
+			String video_name = request.getParameter("vname");
+			System.out.println(video_name);
+			String video_duration = request.getParameter("duration");
 			
-			System.out.println("add video method");
+			System.out.println(video_duration);
+			
 			boolean isMultipart;
 			String filePath,path = null;
 			int maxfilesize = 100000 * 1024;
@@ -152,7 +156,7 @@ public class AdminController extends HttpServlet {
 
 				// Process the uploaded file items
 				Iterator<?> i = fileItems.iterator();
-
+				System.out.println("add video method");
 				while (i.hasNext()) {
 					FileItem fi = (FileItem) i.next();
 					if (!fi.isFormField()) {
@@ -177,12 +181,7 @@ public class AdminController extends HttpServlet {
 			}
 			
 			
-			String video_name = request.getParameter("vname");
-			System.out.println(video_name);
-			String video_duration = request.getParameter("duration");
 			Video video = new Video(video_name, video_duration, path);
-			System.out.println(video_duration);
-			
 			try {
 				int addCount = aservice.addVideo(video);
 				if (addCount > 0) {
