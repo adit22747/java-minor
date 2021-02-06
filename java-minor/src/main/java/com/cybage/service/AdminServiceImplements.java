@@ -6,6 +6,7 @@ import java.util.List;
 import com.cybage.dao.AdminDaoImplements;
 import com.cybage.model.Category;
 import com.cybage.model.Course;
+import com.cybage.model.Video;
 
 public class AdminServiceImplements implements AdminServiceInterface {
 	private AdminDaoImplements ad;
@@ -48,6 +49,11 @@ public class AdminServiceImplements implements AdminServiceInterface {
 	public List<Category> getCategory() throws Exception {
 		// TODO Auto-generated method stub
 	return ad.getCategory();
+	}
+
+	public int addVideo(Video v) throws Exception {
+		// TODO Auto-generated method stub
+		return ad.addVideo(v);
 	}
 
 }

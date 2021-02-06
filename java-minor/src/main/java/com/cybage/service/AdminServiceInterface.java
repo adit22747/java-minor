@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.cybage.model.Category;
 import com.cybage.model.Course;
+import com.cybage.model.Video;
 
 public interface AdminServiceInterface {
 	public int addCourse(Course c) throws Exception;
+	public int addVideo(Video v) throws Exception;
 	public int deleteCourse(int id) throws Exception;
 	public List<Course> getCourse() throws Exception;
 	public Course getCourseById(int id);

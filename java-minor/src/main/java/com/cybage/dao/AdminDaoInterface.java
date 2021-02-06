@@ -9,6 +9,7 @@ import com.cybage.model.Video;
 
 public interface AdminDaoInterface {
 	public int addCourse(Course c) throws Exception;
+	public int addVideo(Video v) throws Exception;
 	public int deleteCourse(int id) throws Exception;
 	public List<Course> getCourse() throws SQLException, Exception;
 	public List<Category> getCategory() throws SQLException, Exception;

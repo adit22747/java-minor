@@ -51,6 +51,13 @@ public class Video {
 		this.url = url;
 		this.course = course;
 	}
+	public Video(String name, int duration, String url) {
+		super();
+		this.name = name;
+		this.duration = duration;
+		this.url = url;
+		this.course = course;
+	}
 	public Video() {
 		super();
 	}

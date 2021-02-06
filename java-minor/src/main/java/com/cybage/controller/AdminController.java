@@ -1,10 +1,12 @@
 package com.cybage.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,20 +16,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
-import javax.servlet .annotation.MultipartConfig; 
+import javax.servlet.annotation.MultipartConfig;
 
 import com.cybage.dao.AdminDaoImplements;
 import com.cybage.model.Category;
 import com.cybage.model.Course;
+import com.cybage.model.Video;
 import com.cybage.service.AdminServiceImplements;
 
 /**
  * Servlet implementation class AdminController
  */
 @WebServlet("/AdminController/*")
-@MultipartConfig(maxFileSize = 16177215) 
+@MultipartConfig(maxFileSize = 16177215)
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AdminDaoImplements adao = new AdminDaoImplements();
@@ -36,6 +43,7 @@ public class AdminController extends HttpServlet {
 	/**
 	 * Default constructor.
 	 */
+
 	public AdminController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -48,20 +56,21 @@ public class AdminController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter pw = response.getWriter();
+
 		if (request.getPathInfo().equals("/fetch_course")) {
 			response.getWriter().append("Fetching data");
 
 			try {
 				List<Course> courses = aservice.getCourse();
 				for (Course course : courses) {
-					if(course.getCourse_image() != null) {
+					if (course.getCourse_image() != null) {
 						byte[] bytes = IOUtils.toByteArray(course.getCourse_image());
 						String encode = Base64.getEncoder().encodeToString(bytes);
-						
+
 						course.setEncode(encode);
 						System.out.println(course.getEncode());
 					}
-					
+
 				}
 				request.setAttribute("courses", courses);
 				request.getRequestDispatcher("/admin/Course.jsp").forward(request, response);
@@ -91,17 +100,17 @@ public class AdminController extends HttpServlet {
 			String course_desc = request.getParameter("cdesc");
 			InputStream inputStream = null;
 			Part filePart = request.getPart("cimage");
-			/*if (filePart != null) {
-
-				// Prints out some information
-				// for debugging
-				System.out.println(filePart.getName());
-				System.out.println(filePart.getSize());
-				System.out.println(filePart.getContentType());
-
-				// Obtains input stream of the upload file
-				inputStream = filePart.getInputStream();
-			}*/
+			/*
+			 * if (filePart != null) {
+			 * 
+			 * // Prints out some information // for debugging
+			 * System.out.println(filePart.getName());
+			 * System.out.println(filePart.getSize());
+			 * System.out.println(filePart.getContentType());
+			 * 
+			 * // Obtains input stream of the upload file inputStream =
+			 * filePart.getInputStream(); }
+			 */
 			inputStream = filePart.getInputStream();
 			Course course = new Course(course_name, course_desc, inputStream);
 			try {
@@ -114,6 +123,78 @@ public class AdminController extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
+		}
+		if (request.getPathInfo().equals("/add_video")) {
+			
+			System.out.println("add video method");
+			boolean isMultipart;
+			String filePath,path = null;
+			int maxfilesize = 100000 * 1024;
+			int maxMemSize = 4 * 1024;
+			File file;
+			filePath = getServletContext().getInitParameter("file-upload");
+
+			isMultipart = ServletFileUpload.isMultipartContent(request);
+			PrintWriter out = response.getWriter();
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			factory.setSizeThreshold(maxMemSize);
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setSizeMax(maxfilesize);
+			
+			
+			try {
+				// Parse the request to get file items.
+				List fileItems = upload.parseRequest(request);
+
+				// Process the uploaded file items
+				Iterator i = fileItems.iterator();
+
+				while (i.hasNext()) {
+					FileItem fi = (FileItem) i.next();
+					if (!fi.isFormField()) {
+						// Get the uploaded file parameters
+						String fieldName = fi.getFieldName();
+						String fileName = fi.getName();
+						String contentType = fi.getContentType();
+						boolean isInMemory = fi.isInMemory();
+						long sizeInBytes = fi.getSize();
+
+						// Write the file
+						if (fileName.lastIndexOf("\\") >= 0) {
+							file = new File(filePath + fileName.substring(fileName.lastIndexOf("\\")));
+						} else {
+							file = new File(filePath + fileName.substring(fileName.lastIndexOf("\\") + 1));
+						}
+						fi.write(file);
+						
+						path = filePath + fileName;
+						System.out.println(path);
+						String video_name= request.getParameter("vname");
+						pw.print(video_name);
+					}
+				}
+
+			} catch (Exception ex) {
+				System.out.println(ex);
+			}
+			
+			
+			
+			/*String video_name = request.getParameter("vname");
+			
+			int video_duration = Integer.parseInt(request.getParameter("duration"));
+			Video video = new Video(video_name, video_duration, path);
+			System.out.println(video_duration);
+			try {
+				int addCount = aservice.addVideo(video);
+				if (addCount > 0) {
+					System.out.println("video is added");
+					response.sendRedirect("fetch_course");
+				}
+//				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}*/
 		}
 
 	}

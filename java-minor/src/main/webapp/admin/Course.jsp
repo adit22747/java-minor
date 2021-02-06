@@ -12,6 +12,7 @@
 <body>
 <h1>welcome <%= request.getRemoteUser()  %></h1>
 <a href="<%=request.getContextPath()%>/admin/add-course.jsp">Add Course</a>
+<a href="<%=request.getContextPath()%>/admin/add-video.jsp">Add video</a>
 <br>
 <table border="1">
 	<tr>
