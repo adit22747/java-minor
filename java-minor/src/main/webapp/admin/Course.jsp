@@ -29,7 +29,7 @@
 			<td><c:out value="${u.id }"></c:out></td>
 			<td><c:out value="${u.name }"></c:out></td>
 			<td><c:out value="${u.desc }"></c:out></td>
-			<td><c:out value="${u.course_image }"></c:out></td>
+			<td><img height="100px" width="200px" src="<c:out value='data:image/jpeg;base64,${u.encode}'/>"/></td> 
 			<td contenteditable="false"><c:out value="${u.category }"></c:out></td>
 			<%-- <td><a href="<%=request.getContextPath() %>/UserController/edit?id=${u.id}">Update</a></td> --%>
 			<td><a href="<%=request.getContextPath() %>/AdminController/delete_course?id=${u.id}">Delete</a></td>

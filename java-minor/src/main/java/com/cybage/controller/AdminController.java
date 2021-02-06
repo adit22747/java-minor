@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.apache.commons.io.IOUtils;
+
 import javax.servlet .annotation.MultipartConfig; 
 
 import com.cybage.dao.AdminDaoImplements;
@@ -49,9 +53,16 @@ public class AdminController extends HttpServlet {
 
 			try {
 				List<Course> courses = aservice.getCourse();
-				List<Category> categories = aservice.getCategory();
+				for (Course course : courses) {
+					if(course.getCourse_image() != null) {
+						byte[] bytes = IOUtils.toByteArray(course.getCourse_image());
+						String encode = Base64.getEncoder().encodeToString(bytes);
+						System.out.println(encode);
+						course.setEncode(encode);
+					}
+					
+				}
 				request.setAttribute("courses", courses);
-				request.setAttribute("categories", categories);
 				request.getRequestDispatcher("/admin/Course.jsp").forward(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

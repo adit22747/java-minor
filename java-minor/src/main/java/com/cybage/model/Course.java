@@ -8,6 +8,13 @@ public class Course {
 	private String desc;
 	private InputStream course_image;
 	private String category;
+	private String Encode;
+	public String getEncode() {
+		return Encode;
+	}
+	public void setEncode(String encode) {
+		Encode = encode;
+	}
 	public int getId() {
 		return id;
 	}
@@ -38,6 +45,8 @@ public class Course {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	
 	public Course(int id, String name, String desc, InputStream course_image, String category) {
 		super();
 		this.id = id;
@@ -62,6 +71,7 @@ public class Course {
 		this.desc = desc;
 		this.course_image = course_image;
 	}
+	
 	
 	
 	

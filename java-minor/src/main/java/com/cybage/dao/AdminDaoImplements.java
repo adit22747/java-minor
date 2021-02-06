@@ -48,7 +48,7 @@ public class AdminDaoImplements implements AdminDaoInterface {
 			course.setId(rs.getInt(4));
 			course.setName(rs.getString(5));
 			course.setDesc(rs.getString(7));
-//			course.setCourse_image(rs.getString(8));
+			course.setCourse_image(rs.getBinaryStream(8));
 			courses.add(course);
 		}
 		return courses;
