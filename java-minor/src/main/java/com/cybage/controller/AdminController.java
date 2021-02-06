@@ -177,12 +177,12 @@ public class AdminController extends HttpServlet {
 			}
 			
 			
-			
 			String video_name = request.getParameter("vname");
 			System.out.println(video_name);
 			String video_duration = request.getParameter("duration");
 			Video video = new Video(video_name, video_duration, path);
 			System.out.println(video_duration);
+			
 			try {
 				int addCount = aservice.addVideo(video);
 				if (addCount > 0) {

@@ -113,10 +113,10 @@ public class AdminDaoImplements implements AdminDaoInterface {
 		String sql = "insert into video(course_id,video_name,duration,video_url) values(?,?,?,?)";
 		Connection con = DbUtil.getCon();
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(2, 1);
-		ps.setString(3, v.getName());
-		ps.setString(4, v.getDuration());
-		ps.setString(5, v.getUrl());
+		ps.setInt(1, 1);
+		ps.setString(2, v.getName());
+		ps.setString(3, v.getDuration());
+		ps.setString(4, v.getUrl());
 		return ps.executeUpdate();
 	}
 
