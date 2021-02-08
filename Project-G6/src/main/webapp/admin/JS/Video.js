@@ -1,0 +1,7 @@
+/**
+ * 
+ */
+function fin() {
+	alert("hellp");
+	
+}
