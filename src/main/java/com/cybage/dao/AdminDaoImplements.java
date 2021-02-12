@@ -211,7 +211,7 @@ public class AdminDaoImplements implements AdminDaoInterface{
 			else {
 
 
-				String sql="UPDATE `course` SET `course_name`=?,`course_desc`=?,`course_url`=? WHERE `course_id`=?";
+				String sql="UPDATE `course` SET `course_name`=?,`course_desc`=?,`course_image`=? WHERE `course_id`=?";
 
 				PreparedStatement ps=con.prepareStatement(sql);
 				ps.setString(1, c.getName());
@@ -285,7 +285,7 @@ public class AdminDaoImplements implements AdminDaoInterface{
 			}
 			else {
 
-				PreparedStatement ps=con.prepareStatement("update category set category_name=?,category_url=? where category_id=?");
+				PreparedStatement ps=con.prepareStatement("update category set category_name=?,category_image=? where category_id=?");
 				ps.setString(1, c.getName());
 				ps.setBlob(2, c.getImage());
 

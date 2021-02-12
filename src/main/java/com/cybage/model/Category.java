@@ -79,5 +79,10 @@ public class Category {
 		this.name = name2;
 		this.image = image;
 	}
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", category_url=" + category_url + ", category_image="
+				+ category_image + ", encode=" + encode + ", image=" + image + "]";
+	}
 
 }

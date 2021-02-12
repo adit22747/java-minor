@@ -1,0 +1,5 @@
+projectKey=java-minor
+serverUrl=http://172.27.12.78
+dashboardUrl=http://172.27.12.78/dashboard/index/java-minor
+ceTaskId=AXeVXD9AirXW5IlAPXDa
+ceTaskUrl=http://172.27.12.78/api/ce/task?id=AXeVXD9AirXW5IlAPXDa

@@ -74,10 +74,7 @@
 					<c:forEach var="u" items="${courses}">
 
 						<tr>
-							<form enctype="multipart/form-data" method="post"
-								onsubmit="return fin('${u.id}')"
-								action=<%= request.getContextPath()%>
-								/AdminController/update_course>
+							<form enctype="multipart/form-data" method="post" onsubmit="return fin('${u.id}')" action=<%= request.getContextPath()%>/AdminController/update_course>
 
 								<td><input type="text" value="${u.id}" hidden
 									name="course_id"></td>

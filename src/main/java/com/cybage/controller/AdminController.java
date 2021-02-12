@@ -98,11 +98,8 @@ public class AdminController extends HttpServlet {
 					throw new CategoryException("ERROR IN DATA ADDITION");
 				}
 				response.sendRedirect("fetch_category");
-			} catch (SQLException e) {
+			}catch (Exception e) {
 				log.error("Error: " + e.getLocalizedMessage());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 
