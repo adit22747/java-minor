@@ -99,6 +99,9 @@ public class AdminController extends HttpServlet {
 				response.sendRedirect("fetch_category");			
 			} catch (SQLException e) {
 				log.error("Error: " + e.getLocalizedMessage());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		

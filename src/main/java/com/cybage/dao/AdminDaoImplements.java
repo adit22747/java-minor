@@ -309,16 +309,14 @@ public class AdminDaoImplements implements AdminDaoInterface{
 
 	}
 
-
-	public int addCategory(Category c) throws SQLException {
-		// TODO Auto-generated method stub
-		String sql = "insert into category(category_name,category_url) values(?,?)";
+	public int addCategory(Category c) throws Exception {
+		log.debug("Inside addCategory in AdminDao");
+		String sql = "insert into category(category_name,category_image) values(?,?)";
 		Connection con = null;
 		try {
 			con = DbUtil.getCon();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error: "+e.getLocalizedMessage());
 		}
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, c.getName());

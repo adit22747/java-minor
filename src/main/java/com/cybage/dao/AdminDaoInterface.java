@@ -21,6 +21,6 @@ public interface AdminDaoInterface {
 	public boolean updateVideo(Video v) throws SQLException;
 	public int addVideo(Video v,int course_id) throws SQLException;
 	public boolean updateCategory(Category c) throws SQLException;
-	public int addCategory(Category c) throws SQLException;
+	public int addCategory(Category c) throws  Exception;
 	
 }

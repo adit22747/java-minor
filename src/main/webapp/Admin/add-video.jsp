@@ -49,7 +49,7 @@
 	</div><br>
 	
 	<div class="row">
-		<div class="col-lg-12"><input type="submit" value="Add course" class="btn btn-primary"></div>
+		<div class="col-lg-12"><input type="submit" value="Add video" class="btn btn-primary"></div>
 	</div>
 	
 	</form>
