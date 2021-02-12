@@ -10,6 +10,7 @@
 <!-- here category name -->
 <%-- <c:out value="${requestScope.category_name}"></c:out> --%>
 <%-- <%=request.getParameter("category_name") %> --%>
+<div class="container">
 	<h2 class="category"><%=request.getParameter("category_name") %></h2> 
 	<div class="card-group">
 	<c:forEach var="u" items="${course}">
@@ -33,7 +34,8 @@
 	      </div>
 	    </div>
 	   
-	</c:forEach></div>
+	</c:forEach>
+	</div></div>
 	
 	<div class="mySpace"></div>
 	

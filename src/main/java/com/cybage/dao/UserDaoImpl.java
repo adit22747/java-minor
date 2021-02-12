@@ -288,7 +288,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public void gencert(String user_name, String course_name) {
-		String FILE = "D:/TempProjectG6/src/main/webapp/Video/"+user_name+course_name+".pdf";
+		String FILE = "D:/JAVA-MINOR-G6/src/main/webapp/Video/"+user_name+course_name+".pdf";
 		Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
 		Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.RED);
 		Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);

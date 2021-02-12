@@ -7,6 +7,18 @@
 <%@include file="header.jsp" %>
 
 <div class="mySpace">
+<div class="topnav">
+  <div class="search-container">
+    <form action="<%=request.getContextPath()%>/UserController/search">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+</div>
+ <c:if test = "${searchresult == 0}">
+ 	<h3>No categories or courses found</h3>
+ 	<a href="<%=request.getContextPath()%>/UserController/main">Go Back</a>
+ </c:if> 
 <div class="container">
 	<h2 class="category"><%=request.getParameter("category_name") %></h2> 
 	<c:forEach var="n" items="${completed}">

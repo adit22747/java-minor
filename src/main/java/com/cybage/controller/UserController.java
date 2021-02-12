@@ -76,8 +76,10 @@ public class UserController extends HttpServlet {
 			String text = request.getParameter("search");
 			int searchresult = 0;
 			int user_id = (Integer)session.getAttribute("user_id");
-			List<Course> enrolledcoursesearch = new ArrayList<Course>();
-			List<Course> newcoursesearch = new ArrayList<Course>();
+			List<Course> course = null;
+			List<Course> enrolledcourse = new ArrayList<Course>();
+			List<Course> newcourse = new ArrayList<Course>();
+			List<Course> completed =new ArrayList<Course>();
 			List<Course> searchedcourses = null;
 			try {
 				searchedcourses = userService.searchByCourse(text);
@@ -101,17 +103,21 @@ public class UserController extends HttpServlet {
 	            try {
 				int result = userService.getentrollement(user_id, course_id);
 						if(result==1) {
-							enrolledcoursesearch.add(searchedcourses.get(i));
+							enrolledcourse.add(searchedcourses.get(i));
 						}else{
-							newcoursesearch.add(searchedcourses.get(i));	
+							newcourse.add(searchedcourses.get(i));	
 						}		
 	            	} catch (Exception e1) {
 	            		e1.getLocalizedMessage();
 	            		}
 	        }
+			for (int i = 0; i < searchedcourses.size(); i++) {
+	           System.out.println(enrolledcourse.get(i).toString());
+	        }
 			request.setAttribute("searchedcourses", searchedcourses);
-			request.setAttribute("enrolledcoursesearch", enrolledcoursesearch);
-			request.setAttribute("newcoursesearch", newcoursesearch);
+			request.setAttribute("enrolledcourse", enrolledcourse);
+			request.setAttribute("newcourse", newcourse);
+			request.setAttribute("completed", completed);
 			request.setAttribute("searchedcategories", searchedcategories);
 			request.getRequestDispatcher("/user/showsearch.jsp").forward(request, response);
 			
@@ -246,8 +252,7 @@ public class UserController extends HttpServlet {
 		}
 
 		if (path.equals("/completed_course")) {
-			System.out.println("in try");
-			/* response.getWriter().append(request.getParameter("course_name")); */
+			 response.getWriter().append(request.getParameter("course_name")); 
 			String name = request.getParameter("course_name");
 			int video_id = Integer.parseInt(request.getParameter("video_id"));
 			int course_id = 0;
