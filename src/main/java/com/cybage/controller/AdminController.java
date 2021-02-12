@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -43,12 +44,12 @@ public class AdminController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, CategoryException, CourseException, VideoException {
-		
+
 		if (request.getPathInfo().equals("/temp")) {
 			log.debug("Inside temp in AdminController");
 			request.getRequestDispatcher("/UserContoller/main").forward(request, response);
 		}
-		
+
 		if (request.getPathInfo().equals("/Course_getway")) {
 			log.debug("Inside Course_getway in AdminController");
 			try {
@@ -59,7 +60,7 @@ public class AdminController extends HttpServlet {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/update_category")) {
 			log.debug("Inside update_category in AdminController");
 			String name = request.getParameter("name");
@@ -80,7 +81,7 @@ public class AdminController extends HttpServlet {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/add_category")) {
 			log.debug("Inside add_category in AdminController");
 			response.getWriter().append("adding categiry");
@@ -92,11 +93,11 @@ public class AdminController extends HttpServlet {
 			try {
 				int addCount = aservice.addCategory(c);
 				if (addCount > 0) {
-					log.info("No. of Categories added..."+addCount);
+					log.info("No. of Categories added..." + addCount);
 					response.sendRedirect("fetch_category");
 					throw new CategoryException("ERROR IN DATA ADDITION");
 				}
-				response.sendRedirect("fetch_category");			
+				response.sendRedirect("fetch_category");
 			} catch (SQLException e) {
 				log.error("Error: " + e.getLocalizedMessage());
 			} catch (Exception e) {
@@ -104,7 +105,7 @@ public class AdminController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/Video_getway")) {
 			log.debug("Inside Video_getway in AdminController");
 			try {
@@ -115,7 +116,7 @@ public class AdminController extends HttpServlet {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/update_course")) {
 
 			int id = Integer.parseInt(request.getParameter("course_id"));
@@ -139,7 +140,7 @@ public class AdminController extends HttpServlet {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/fetch_category")) {
 			log.debug("Inside fetch_category in AdminController ");
 			try {
@@ -152,18 +153,24 @@ public class AdminController extends HttpServlet {
 		}
 
 		if (request.getPathInfo().equals("/fetch")) {
-			log.debug("Inside fetch in AdminController ");
+			response.getWriter().append("Fetching data");
+
 			try {
 				List<Course> courses = aservice.getCourse();
+
 				List<Category> categories = aservice.getCategory();
 				request.setAttribute("courses", courses);
 				request.setAttribute("categories", categories);
+				request.setAttribute("courses_cat", courses);
+				request.getServletContext().setAttribute("courses", courses);
+				request.getServletContext().setAttribute("categories", categories);
 				request.getRequestDispatcher("/Admin/Course.jsp").forward(request, response);
 			} catch (Exception e) {
-				log.error("Error: " + e.getLocalizedMessage());
+
+				e.printStackTrace();
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/fetch_video")) {
 			log.debug("Inside fetch_video in AdminController ");
 			try {
@@ -174,7 +181,7 @@ public class AdminController extends HttpServlet {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/update_video")) {
 			log.debug("Inside update_video in AdminController ");
 			String name = request.getParameter("videoname");
@@ -187,12 +194,12 @@ public class AdminController extends HttpServlet {
 				if (status) {
 
 					response.sendRedirect("fetch_video");
-				} 
+				}
 			} catch (Exception e) {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/add_video")) {
 			log.debug("Inside add_video in AdminController ");
 			int id = Integer.parseInt(request.getParameter("course"));
@@ -204,12 +211,13 @@ public class AdminController extends HttpServlet {
 				int addCount = aservice.addVideo(vid, id);
 				if (addCount <= 0) {
 					throw new VideoException("ERROR IN VIDEO ADDITION");
-				}response.sendRedirect("fetch_video");
+				}
+				response.sendRedirect("fetch_video");
 			} catch (Exception e) {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/add_course")) {
 			log.debug("Inside add_course in AdminController ");
 			int id = Integer.parseInt(request.getParameter("category"));
@@ -223,14 +231,14 @@ public class AdminController extends HttpServlet {
 				int addCount = aservice.addCourse(course, id);
 				if (addCount <= 0) {
 					throw new VideoException("ERROR IN COURSE ADDITION");
-				}	
+				}
 				response.sendRedirect("fetch");
 			} catch (Exception e) {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
-		
+
 		}
-		
+
 		if (request.getPathInfo().equals("/delete_course")) {
 			log.debug("Inside delete_course in AdminController ");
 			try {
@@ -244,7 +252,7 @@ public class AdminController extends HttpServlet {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
 		}
-		
+
 		if (request.getPathInfo().equals("/delete_category")) {
 			log.debug("Inside delete_category in AdminController ");
 			try {
@@ -270,6 +278,26 @@ public class AdminController extends HttpServlet {
 			} catch (Exception e) {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
+		}
+		if (request.getPathInfo().equals("/filter")) {
+
+			String category = request.getParameter("category");
+			if (category.equals("ALL")) {
+				request.getRequestDispatcher("fetch").forward(request, response);
+			}
+
+			List<Course> courses = (List<Course>) request.getServletContext().getAttribute("courses");
+			List<Course> courses_cat = (List<Course>) request.getServletContext().getAttribute("courses");
+			courses = courses.stream().filter(a -> a.getCategory().equals(category)).collect(Collectors.toList());
+			request.setAttribute("courses", courses);
+			List<Category> categories = (List<Category>) request.getServletContext().getAttribute("categories");
+
+			request.setAttribute("categories", categories);
+
+			request.setAttribute("courses_cat", courses_cat);
+
+			request.getRequestDispatcher("/Admin/Course.jsp").forward(request, response);
+
 		}
 	}
 

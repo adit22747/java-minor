@@ -94,7 +94,18 @@ public class Course {
 		this.desc = desc;
 		this.course_image = course_image;
 	}
-	
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((course_image == null) ? 0 : course_image.hashCode());
+		result = prime * result + ((desc == null) ? 0 : desc.hashCode());
+		result = prime * result + ((encode == null) ? 0 : encode.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((image == null) ? 0 : image.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
 	
 	
 	
