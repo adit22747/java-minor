@@ -201,7 +201,7 @@ public class AdminController extends HttpServlet {
 				int addCount = aservice.addVideo(vid, id);
 				if (addCount <= 0) {
 					throw new VideoException("ERROR IN VIDEO ADDITION");
-				}
+				}response.sendRedirect("fetch_video");
 			} catch (Exception e) {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
@@ -220,10 +220,12 @@ public class AdminController extends HttpServlet {
 				int addCount = aservice.addCourse(course, id);
 				if (addCount <= 0) {
 					throw new VideoException("ERROR IN COURSE ADDITION");
-				}			
+				}	
+				response.sendRedirect("fetch");
 			} catch (Exception e) {
 				log.error("Error: " + e.getLocalizedMessage());
 			}
+		
 		}
 		
 		if (request.getPathInfo().equals("/delete_course")) {
