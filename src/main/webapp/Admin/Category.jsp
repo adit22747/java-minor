@@ -41,7 +41,7 @@
 						<div class="col-lg-4">Category_name:</div>
 						
 						<div class="col-lg-8">
-							<input type="text" name="cname">
+							<input type="text" name="cname" required>
 						</div>
 					</div>
 					<br>

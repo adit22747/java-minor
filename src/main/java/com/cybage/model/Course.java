@@ -7,11 +7,7 @@ import javax.sql.rowset.serial.SerialBlob;
 import com.mysql.cj.jdbc.Blob;
 
 public class Course {
-	@Override
-	public String toString() {
-		return "Course [id=" + id + ", name=" + name + ", desc=" + desc + ", course_image=" + course_image
-				+ ", category=" + category + ", encode=" + encode + ", image=" + image + "]";
-	}
+	
 	private int id;
 	private String name;
 	private String desc;
@@ -108,6 +104,10 @@ public class Course {
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", name=" + name + ", desc=" + desc + ", course_image=" + course_image
+				+ ", category=" + category + ", encode=" + encode + ", image=" + image + "]";
+	}
 	
 }

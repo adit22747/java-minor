@@ -8,7 +8,7 @@
             <PatternLayout pattern="${layout}" />
         </Console>    
         
-        <RollingFile name="MyFile" fileName="d://cybagelog.log"
+        <RollingFile name="MyFile" fileName="d://cybagelearninglog.log"
                      filePattern="app.%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="${layout}" />
             <Policies>

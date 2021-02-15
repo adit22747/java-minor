@@ -26,7 +26,7 @@ public class WelcomeController extends HttpServlet {
 	private UserService userService = new UserServiceImpl(userDao);
 
 	public WelcomeController() {
-		super();
+		//super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,7 +35,6 @@ public class WelcomeController extends HttpServlet {
 		List<Category> allCategories = null;
 		try {
 			allCategories = userService.getCategory();
-			log.debug("allCategories:" + allCategories);
 			if (allCategories == null) {
 				log.error("No category to display");
 			}
